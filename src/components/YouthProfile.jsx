@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Box, 
   Container, 
@@ -6,19 +6,67 @@ import {
   Grid, 
   Card, 
   CardContent, 
-  CardMedia, 
   Button, 
   TextField,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  useTheme 
+  useTheme,
+  Alert,
+  CircularProgress
 } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const YouthProfile = () => {
-  const theme = useTheme();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    age: '',
+    county: '',
+    techDomain: '',
+    linkedin: '',
+    github: '',
+    portfolio: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      // Here you would typically make an API call to submit the form
+      // For now, we'll simulate success
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setSuccess('Registration successful!');
+      setTimeout(() => {
+        navigate('/thank-you');
+      }, 2000);
+    } catch (err) {
+      setError('An error occurred during registration. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const techDomains = [
     'Software Development',
     'Data Analytics',
@@ -29,80 +77,99 @@ const YouthProfile = () => {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h4">My Profile</Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          component={RouterLink} 
-          to="/edit-profile"
-        >
-          Edit Profile
-        </Button>
-      </Box>
+    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h4" gutterBottom align="center" sx={{ mb: 4 }}>
+            Youth Registration
+          </Typography>
 
-      <Grid container spacing={4}>
-        {/* Profile Info Card */}
-        <Grid item xs={12} md={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Personal Information
-              </Typography>
-              <Box sx={{ mt: 2 }}>
+          {success && (
+            <Alert severity="success" sx={{ mb: 3 }}>
+              {success}
+            </Alert>
+          )}
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={3}>
+              {/* Personal Information */}
+              <Grid item xs={12}>
+                <Typography variant="h6" gutterBottom>
+                  Personal Information
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="Full Name"
-                  defaultValue="John Doe"
-                  disabled
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  required
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="Email"
-                  defaultValue="john@example.com"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="Phone Number"
-                  defaultValue="+254 712 345 678"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  required
                 />
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Age"
-                  defaultValue="25"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="age"
+                  type="number"
+                  value={formData.age}
+                  onChange={handleChange}
+                  required
                 />
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="County"
-                  defaultValue="Nairobi"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="county"
+                  value={formData.county}
+                  onChange={handleChange}
+                  required
                 />
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+              </Grid>
 
-        {/* Professional Info Card */}
-        <Grid item xs={12} md={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Professional Information
-              </Typography>
-              <Box sx={{ mt: 2 }}>
-                <FormControl fullWidth sx={{ mt: 2 }}>
+              {/* Professional Information */}
+              <Grid item xs={12}>
+                <Typography variant="h6" gutterBottom sx={{ mt: 4 }}>
+                  Professional Information
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
                   <InputLabel>Tech Domain</InputLabel>
                   <Select
-                    defaultValue="Software Development"
-                    disabled
+                    name="techDomain"
+                    value={formData.techDomain}
+                    onChange={handleChange}
+                    required
                   >
                     {techDomains.map((domain) => (
                       <MenuItem key={domain} value={domain}>
@@ -111,49 +178,62 @@ const YouthProfile = () => {
                     ))}
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="LinkedIn Profile"
-                  defaultValue="https://linkedin.com/in/john-doe"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="linkedin"
+                  value={formData.linkedin}
+                  onChange={handleChange}
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="GitHub Profile"
-                  defaultValue="https://github.com/john-doe"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="github"
+                  value={formData.github}
+                  onChange={handleChange}
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="Portfolio URL"
-                  defaultValue="https://john-doe-portfolio.com"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="portfolio"
+                  value={formData.portfolio}
+                  onChange={handleChange}
                 />
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+              </Grid>
 
-        {/* Job Applications Card */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Applied Jobs
-              </Typography>
-              <Box sx={{ mt: 2 }}>
-                {/* Job applications will be listed here */}
-                <Typography variant="body2" color="text.secondary">
-                  No job applications yet
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+              {/* Submit Button */}
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  size="large"
+                  sx={{ mt: 4 }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <CircularProgress size={24} sx={{ color: 'white' }} />
+                      <Typography variant="button" sx={{ ml: 1 }}>
+                        Submitting...
+                      </Typography>
+                    </Box>
+                  ) : (
+                    'Submit Registration'
+                  )}
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
     </Container>
   );
 };

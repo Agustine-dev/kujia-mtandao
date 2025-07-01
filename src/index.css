@@ -4,6 +4,9 @@
   font-family: 'Roboto', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  --mantine-color-primary: #2196F3;
+  --mantine-color-primary-light: #BBDEFB;
+  --mantine-color-primary-dark: #1976D2;
 }
 
 body {
@@ -13,8 +16,72 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #fff;
+  color: #333;
+  font-size: 16px;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Responsive helpers */
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Prevent text selection on interactive elements */
+button,
+input,
+select,
+textarea {
+  user-select: none;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--mantine-color-primary);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
 }

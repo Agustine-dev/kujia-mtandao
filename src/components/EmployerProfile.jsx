@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Box, 
   Container, 
@@ -12,132 +12,240 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  useTheme 
+  useTheme,
+  Alert,
+  CircularProgress
 } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const EmployerProfile = () => {
-  const theme = useTheme();
+  const [formData, setFormData] = useState({
+    companyName: '',
+    email: '',
+    phoneNumber: '',
+    industry: '',
+    companySize: '',
+    website: '',
+    linkedin: '',
+    location: '',
+    description: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      // Here you would typically make an API call to submit the form
+      // For now, we'll simulate success
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setSuccess('Registration successful!');
+      setTimeout(() => {
+        navigate('/thank-you');
+      }, 2000);
+    } catch (err) {
+      setError('An error occurred during registration. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const industries = [
+    'Technology',
+    'Finance',
+    'Healthcare',
+    'Education',
+    'Retail',
+    'Manufacturing',
+    'Other'
+  ];
+
+  const companySizes = [
+    '1-10 employees',
+    '11-50 employees',
+    '51-200 employees',
+    '201-500 employees',
+    '500+ employees'
+  ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-        <Typography variant="h4">Employer Dashboard</Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          component={RouterLink} 
-          to="/post-job"
-        >
-          Post New Job
-        </Button>
-      </Box>
+    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h4" gutterBottom align="center" sx={{ mb: 4 }}>
+            Employer Registration
+          </Typography>
 
-      <Grid container spacing={4}>
-        {/* Company Info Card */}
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Company Information
-              </Typography>
-              <Box sx={{ mt: 2 }}>
+          {success && (
+            <Alert severity="success" sx={{ mb: 3 }}>
+              {success}
+            </Alert>
+          )}
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={3}>
+              {/* Company Information */}
+              <Grid item xs={12}>
+                <Typography variant="h6" gutterBottom>
+                  Company Information
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="Company Name"
-                  defaultValue="Tech Solutions Ltd"
-                  disabled
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                  required
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="Email"
-                  defaultValue="hr@techsolutions.com"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
                   label="Phone Number"
-                  defaultValue="+254 712 345 678"
-                  disabled
-                  sx={{ mt: 2 }}
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  required
                 />
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Posted Jobs Card */}
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Posted Jobs
-              </Typography>
-              <Box sx={{ mt: 2 }}>
-                {/* Job listings will be shown here */}
-                <Typography variant="body2" color="text.secondary">
-                  No jobs posted yet
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Candidates Card */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Applied Candidates
-              </Typography>
-              <Box sx={{ mt: 2 }}>
-                {/* Candidate applications will be listed here */}
-                <Typography variant="body2" color="text.secondary">
-                  No candidates yet
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Donations Card */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                Donations
-              </Typography>
-              <Box sx={{ mt: 2 }}>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <InputLabel>Donation Purpose</InputLabel>
-                  <Select>
-                    <MenuItem value="scholarships">Scholarships</MenuItem>
-                    <MenuItem value="devices">Devices</MenuItem>
-                    <MenuItem value="grants">ICT Business Grants</MenuItem>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel>Industry</InputLabel>
+                  <Select
+                    name="industry"
+                    value={formData.industry}
+                    onChange={handleChange}
+                    required
+                  >
+                    {industries.map((industry) => (
+                      <MenuItem key={industry} value={industry}>
+                        {industry}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel>Company Size</InputLabel>
+                  <Select
+                    name="companySize"
+                    value={formData.companySize}
+                    onChange={handleChange}
+                    required
+                  >
+                    {companySizes.map((size) => (
+                      <MenuItem key={size} value={size}>
+                        {size}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Amount"
-                  type="number"
-                  InputProps={{
-                    startAdornment: 'KES',
-                  }}
+                  label="Website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  required
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="LinkedIn Profile"
+                  name="linkedin"
+                  value={formData.linkedin}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Company Description"
+                  name="description"
+                  multiline
+                  rows={4}
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                />
+              </Grid>
+
+              {/* Submit Button */}
+              <Grid item xs={12}>
                 <Button
+                  type="submit"
                   variant="contained"
                   color="primary"
                   fullWidth
-                  sx={{ mt: 2 }}
+                  size="large"
+                  sx={{ mt: 4 }}
+                  disabled={loading}
                 >
-                  Make Donation
+                  {loading ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <CircularProgress size={24} sx={{ color: 'white' }} />
+                      <Typography variant="button" sx={{ ml: 1 }}>
+                        Submitting...
+                      </Typography>
+                    </Box>
+                  ) : (
+                    'Submit Registration'
+                  )}
                 </Button>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+              </Grid>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
     </Container>
   );
 };

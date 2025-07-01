@@ -1,47 +1,59 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button,
+import {
   Container,
+  Typography,
   Grid,
   Card,
   CardContent,
-  Box,
-  CardMedia,
-  Paper,
-  Avatar,
-  Rating,
+  Button,
+  AppBar,
+  Toolbar,
   IconButton,
-  Stack,
-  Divider,
-  styled
+  styled,
+  Chip,
+  Box,
+  Link
 } from '@mui/material';
 import { 
   ArrowForward, 
-  ArrowBack, 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  LinkedIn,
-  Email,
   Phone,
+  Email,
   LocationOn,
-  Business
+  Facebook,
+  Twitter,
+  Instagram,
+  LinkedIn,
+  GitHub,
+  SmartToy,
+  Analytics,
+  Security,
+  Code,
+  Storage,
+  Security as CyberSecurity,
+  Campaign,
+  Cloud,
+  Business,
+  School,
+  Shield,
+  CloudUpload,
+  CloudDownload,
+  CloudQueue,
+  CloudDone
 } from '@mui/icons-material';
-import logo from '../assets/logo.png';
+import { Link as RouterLink } from 'react-router-dom';
+import YouthProfile from './YouthProfile';
+import EmployerProfile from './EmployerProfile';
 
 const StyledHero = styled(Box)(({ theme }) => ({
   backgroundImage: 'url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
-  backgroundAttachment: 'fixed',
   minHeight: '80vh',
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
+  overflow: 'hidden',
+  backgroundAttachment: 'fixed',
 }));
 
 const StyledOverlay = styled(Box)(({ theme }) => ({
@@ -52,19 +64,159 @@ const StyledOverlay = styled(Box)(({ theme }) => ({
   bottom: 0,
   backgroundColor: 'rgba(0, 0, 0, 0.4)',
   backdropFilter: 'blur(4px)',
+  zIndex: 1,
 }));
 
+const chaptersData = {
+  regions: [
+    {
+      title: 'Nairobi',
+      chapters: [
+        'Kujia Techies Nairobi (17)',
+        'Kujia Techies Kiambu',
+        'Kujia Techies Diaspora'
+      ]
+    },
+    {
+      title: 'Lower Eastern',
+      chapters: [
+        'Kujia Techies Machakos',
+        'Kujia Techies Kitui',
+        'Kujia Techies Makueni',
+        'Kujia Techies Kajiado'
+      ]
+    },
+    {
+      title: 'Coast Region',
+      chapters: [
+        'Kujia Techies Mombasa',
+        'Kujia Techies Kilifi',
+        'Kujia Techies Kwale',
+        'Kujia Techies Taita Taveta',
+        'Kujia Techies Tana River',
+        'Kujia Techies Lamu'
+      ]
+    },
+    {
+      title: 'North Eastern',
+      chapters: [
+        'Kujia Techies Garissa',
+        'Kujia Techies Wajir',
+        'Kujia Techies Mandera'
+      ]
+    },
+    {
+      title: 'Central Region',
+      chapters: [
+        'Kujia Techies Laikipia',
+        'Kujia Techies Muranga',
+        'Kujia Techies Nyeri',
+        'Kujia Techies Kirinyaga',
+        'Kujia Techies Nyandarua'
+      ]
+    },
+    {
+      title: 'Upper Eastern',
+      chapters: [
+        'Kujia Techies Meru',
+        'Kujia Techies Embu',
+        'Kujia Techies Tharaka-Nthi'
+      ]
+    },
+    {
+      title: 'North Rift',
+      chapters: [
+        'Kujia Techies Uasin Gishu',
+        'Kujia Techies West Pokot',
+        'Kujia Techies Baringo',
+        'Kujia Techies Nandi',
+        'Kujia Techies Elgeyo Marakwet'
+      ]
+    },
+    {
+      title: 'Northern',
+      chapters: [
+        'Kujia Techies Turkana',
+        'Kujia Techies Marsabit',
+        'Kujia Techies Isiolo',
+        'Kujia Techies Samburu'
+      ]
+    },
+    {
+      title: 'South Rift',
+      chapters: [
+        'Kujia Techies Nakuru',
+        'Kujia Techies Bomet',
+        'Kujia Techies Nandi',
+        'Kujia Techies Kericho'
+      ]
+    },
+    {
+      title: 'South Nyanza',
+      chapters: [
+        'Kujia Techies Kisii',
+        'Kujia Techies Homabay',
+        'Kujia Techies Migori',
+        'Kujia Techies Nyamira'
+      ]
+    },
+    {
+      title: 'Central Nyanza',
+      chapters: [
+        'Kujia Techies Kisumu',
+        'Kujia Techies Siaya'
+      ]
+    },
+    {
+      title: 'Western',
+      chapters: [
+        'Kujia Techies Kakamega',
+        'Kujia Techies Bungoma',
+        'Kujia Techies Trans Zoia',
+        'Kujia Techies Vihiga',
+        'Kujia Techies Busia'
+      ]
+    }
+  ],
+  about: {
+    title: "Kujia Techies for Chapters",
+    description: "Kujia has Local Associations known as Chapters for Kenyan Youth in Digital Space aged 18-35, some are students, some are professionals and some are entrepreneurs specialized in Digital Marketing and Reselling, Data Analytics, Software Development, Artificial Intelligence, Cloud Computing, and Cybersecurity.",
+    benefits: [
+      "Home of a tech-savvy and entrepreneurial-minded Kenyan youth with a global perspective",
+      "A Kujia Chapter is a Home to Kenyan Youth in Digital Marketing, Data Analytics, Software Development, Artificial Intelligence, Cloud Computing and Cybersecurity",
+      "Occupation of Kujia Techies: Kenyan Students, Professionals, Entrepreneurs, in Digital Marketing, Data Analytics, Software Development, Artificial Intelligence, Cloud Computing, and Cybersecurity"
+    ],
+    chaptersInfo: {
+      total: "17 Nairobi Only, 46 County Chapters, and 16 Diaspora Chapters for Kenyan Techies Outside the Country",
+      callToAction: "Join a chapter near You"
+    }
+  }
+};
+
 const LandingPage = () => {
+  const [showForm, setShowForm] = React.useState(false);
+  const [formType, setFormType] = React.useState('');
+
+  const handleRegister = (type) => {
+    setShowForm(true);
+    setFormType(type);
+  };
+
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', overflow: 'hidden' }}>
       {/* Navigation */}
-      <AppBar position="static" color="primary" elevation={0}>
-        <Toolbar>
+      <AppBar position="static" color="primary" elevation={0} sx={{ mb: 4 }}>
+        <Toolbar sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mr: 2 }}>
-            <Avatar sx={{ bgcolor: 'white', color: 'primary.main' }}>
-              <img src={logo} alt="Kujia Techies Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-            </Avatar>
-            <Typography variant="h6" color="white" sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Typography 
+              variant="h6" 
+              color="white" 
+              sx={{ 
+                display: { xs: 'none', sm: 'block' },
+                fontWeight: 600,
+                letterSpacing: '0.5px'
+              }}
+            >
               Kujia Techies Jobs
             </Typography>
           </Box>
@@ -73,7 +225,15 @@ const LandingPage = () => {
             component={RouterLink}
             to="/register/youth"
             color="inherit"
-            sx={{ mr: 2 }}
+            variant="outlined"
+            sx={{ 
+              mr: 2, 
+              borderRadius: 2, 
+              textTransform: 'none', 
+              px: 3, 
+              py: 1.5, 
+              fontSize: '1rem'
+            }}
           >
             Register as Youth
           </Button>
@@ -81,151 +241,830 @@ const LandingPage = () => {
             component={RouterLink}
             to="/register/employer"
             color="inherit"
+            variant="contained"
+            sx={{ 
+              borderRadius: 2, 
+              textTransform: 'none', 
+              px: 3, 
+              py: 1.5, 
+              fontSize: '1rem'
+            }}
           >
             Register as Employer
           </Button>
         </Toolbar>
       </AppBar>
 
+      {/* Form Overlay */}
+      {showForm && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            bgcolor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1300
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: 1200,
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+              p: 4
+            }}
+          >
+            <Button
+              onClick={() => setShowForm(false)}
+              sx={{
+                position: 'absolute',
+                right: 16,
+                top: 16,
+                color: 'primary.main',
+                '&:hover': {
+                  bgcolor: 'primary.light'
+                }
+              }}
+            >
+              Close
+            </Button>
+            {formType === 'youth' ? (
+              <YouthProfile />
+            ) : (
+              <EmployerProfile />
+            )}
+          </Box>
+        </Box>
+      )}
+
       {/* Hero Section */}
       <StyledHero>
         <StyledOverlay />
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', position: 'relative', zIndex: 1, mb: { xs: 4, md: 8 } }}>
+          <Box sx={{ 
+            textAlign: 'center', 
+            position: 'relative', 
+            zIndex: 2,
+            mb: { xs: 4, md: 8 },
+            px: 2
+          }}>
             <Typography
               variant="h1"
               component="h1"
               sx={{
-                mb: 3,
-                fontSize: { xs: '2.5rem', md: '4rem' },
-                fontWeight: 'bold',
-                background: 'linear-gradient(45deg, #2196F3, #4CAF50)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em',
+                color: 'white',
+                fontWeight: 700,
+                fontSize: { xs: '2.5rem', md: '3.5rem' },
+                mb: 2,
+                textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                lineHeight: 1.2
               }}
             >
               Welcome to Kujia Techies Jobs
             </Typography>
             <Typography
-              variant="h2"
-              component="h2"
+              variant="h4"
+              color="white"
               sx={{
                 mb: 4,
-                fontSize: { xs: '1.5rem', md: '2rem' },
-                color: 'white',
-                textAlign: 'center',
-                maxWidth: '800px',
-                mx: 'auto',
-                lineHeight: 1.5,
+                fontSize: { xs: '1.2rem', md: '1.5rem' },
+                opacity: 0.9,
+                textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
               }}
             >
-              Connecting Kenyan youth with ICT opportunities through innovative job matching and skill development programs
+              Connecting talented youth with amazing opportunities
             </Typography>
-            <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} justifyContent="center">
+            <Box sx={{ 
+              display: 'flex', 
+              gap: 3, 
+              justifyContent: 'center', 
+              mb: 6,
+              mt: 4,
+              flexWrap: 'wrap'
+            }}>
               <Button
-                component={RouterLink}
-                to="/register/youth"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 size="large"
-                startIcon={<Email />}
+                endIcon={<ArrowForward />}
                 sx={{
-                  px: 4,
-                  py: 2,
-                  fontSize: '1.1rem',
+                  px: 5,
+                  py: 2.5,
                   borderRadius: 2,
+                  textTransform: 'none',
+                  fontSize: '1.1rem',
+                  fontWeight: 500,
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     transform: 'translateY(-2px)',
-                    boxShadow: 6,
-                  },
+                    boxShadow: 4
+                  }
                 }}
               >
-                Register as Youth
+                Get Started
               </Button>
               <Button
-                component={RouterLink}
-                to="/register/employer"
                 variant="outlined"
-                color="primary"
+                color="secondary"
                 size="large"
-                startIcon={<Business />}
                 sx={{
-                  px: 4,
-                  py: 2,
-                  fontSize: '1.1rem',
+                  px: 5,
+                  py: 2.5,
                   borderRadius: 2,
+                  textTransform: 'none',
+                  fontSize: '1.1rem',
+                  fontWeight: 500,
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     transform: 'translateY(-2px)',
-                    boxShadow: 6,
-                  },
+                    boxShadow: 4
+                  }
                 }}
               >
-                Register as Employer
+                Learn More
               </Button>
-            </Stack>
+            </Box>
           </Box>
         </Container>
       </StyledHero>
 
-      {/* Services Section */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h2" component="h2" align="center" sx={{ mb: 6, fontWeight: 'bold' }}>
-          Our Services
-        </Typography>
+      {/* Features Section */}
+      <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 4 }}>
-              <Typography variant="h5" component="h3" sx={{ mb: 2, fontWeight: 'bold' }}>
-                Job Matching
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                p: 3,
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)'
+                }
+              }}
+            >
+              <SmartToy sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+              <Typography
+                variant="h5"
+                align="center"
+                sx={{ mb: 2 }}
+              >
+                AI-Powered Matching
               </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ flex: 1 }}>
-                We connect talented youth with the right job opportunities based on their skills and experience
+              <Typography
+                variant="body1"
+                align="center"
+                sx={{ color: 'text.secondary' }}
+              >
+                Our advanced AI system matches you with the perfect job opportunities
               </Typography>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                p: 3,
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)'
+                }
+              }}
+            >
+              <Analytics sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+              <Typography
+                variant="h5"
+                align="center"
+                sx={{ mb: 2 }}
+              >
+                Data-Driven Insights
+              </Typography>
+              <Typography
+                variant="body1"
+                align="center"
+                sx={{ color: 'text.secondary' }}
+              >
+                Get insights into job market trends and your application status
+              </Typography>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                p: 3,
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)'
+                }
+              }}
+            >
+              <Security sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+              <Typography
+                variant="h5"
+                align="center"
+                sx={{ mb: 2 }}
+              >
+                Secure Platform
+              </Typography>
+              <Typography
+                variant="body1"
+                align="center"
+                sx={{ color: 'text.secondary' }}
+              >
+                Your data is protected with our enterprise-grade security measures
+              </Typography>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+
+      {/* Tech Domains Section */}
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 }, mt: 8 }}>
+        <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Typography
+            variant="h2"
+            component="h2"
+            gutterBottom
+            sx={{ fontWeight: 700 }}
+          >
+            Our Tech Domains
+          </Typography>
+          <Typography
+            variant="h6"
+            color="text.secondary"
+            paragraph
+            sx={{ maxWidth: 600, mx: 'auto' }}
+          >
+            Discover our expertise in cutting-edge technology solutions designed to help you succeed in the digital age
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4}>
+          {/* Software Development */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                bgcolor: 'background.paper',
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 6
+                }
+              }}
+            >
+              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+                <Box sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  bgcolor: 'primary.light',
+                  borderRadius: 2,
+                  p: 2,
+                  width: '80px',
+                  height: '80px'
+                }}>
+                  <Code sx={{ fontSize: 48, color: 'primary.main' }} />
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h3"
+                  sx={{ mb: 2 }}
+                >
+                  Software Development
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  paragraph
+                >
+                  We specialize in developing robust, scalable, and maintainable software solutions using modern technologies and best practices.
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+                  <Chip
+                    label="React"
+                    size="small"
+                    sx={{ bgcolor: 'primary.light', color: 'primary.main' }}
+                  />
+                  <Chip
+                    label="Node.js"
+                    size="small"
+                    sx={{ bgcolor: 'primary.light', color: 'primary.main' }}
+                  />
+                  <Chip
+                    label="TypeScript"
+                    size="small"
+                    sx={{ bgcolor: 'primary.light', color: 'primary.main' }}
+                  />
+                  <Chip
+                    label="Python"
+                    size="small"
+                    sx={{ bgcolor: 'primary.light', color: 'primary.main' }}
+                  />
+                  <Chip
+                    label="Java"
+                    size="small"
+                    sx={{ bgcolor: 'primary.light', color: 'primary.main' }}
+                  />
+                </Box>
+              </CardContent>
               <Button
-                component={RouterLink}
-                to="/register/youth"
+                fullWidth
+                variant="text"
                 color="primary"
-                sx={{ mt: 2 }}
+                size="small"
+                component={Link}
+                to="#software-development"
+                sx={{ 
+                  mt: 2, 
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  fontSize: '1rem'
+                }}
               >
                 Learn More
               </Button>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 4 }}>
-              <Typography variant="h5" component="h3" sx={{ mb: 2, fontWeight: 'bold' }}>
-                Skill Development
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ flex: 1 }}>
-                Access training programs and workshops to enhance your technical skills and employability
-              </Typography>
+
+          {/* Data Analytics */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                bgcolor: 'background.paper',
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 6
+                }
+              }}
+            >
+              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+                <Box sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  bgcolor: 'secondary.light',
+                  borderRadius: 2,
+                  p: 2,
+                  width: '80px',
+                  height: '80px'
+                }}>
+                  <Analytics sx={{ fontSize: 48, color: 'secondary.main' }} />
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h3"
+                  sx={{ mb: 2 }}
+                >
+                  Data Analytics
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Transform raw data into meaningful insights using advanced analytics and visualization tools to drive business decisions.
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+                  <Chip
+                    label="Big Data"
+                    size="small"
+                    sx={{ bgcolor: 'secondary.light', color: 'secondary.main' }}
+                  />
+                  <Chip
+                    label="AI"
+                    size="small"
+                    sx={{ bgcolor: 'secondary.light', color: 'secondary.main' }}
+                  />
+                  <Chip
+                    label="ML"
+                    size="small"
+                    sx={{ bgcolor: 'secondary.light', color: 'secondary.main' }}
+                  />
+                  <Chip
+                    label="SQL"
+                    size="small"
+                    sx={{ bgcolor: 'secondary.light', color: 'secondary.main' }}
+                  />
+                  <Chip
+                    label="BI"
+                    size="small"
+                    sx={{ bgcolor: 'secondary.light', color: 'secondary.main' }}
+                  />
+                </Box>
+              </CardContent>
               <Button
-                component={RouterLink}
-                to="/register/youth"
+                fullWidth
+                variant="text"
                 color="primary"
-                sx={{ mt: 2 }}
+                size="small"
+                component={Link}
+                to="#data-analytics"
+                sx={{ 
+                  mt: 2, 
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  fontSize: '1rem'
+                }}
               >
                 Learn More
               </Button>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 4 }}>
-              <Typography variant="h5" component="h3" sx={{ mb: 2, fontWeight: 'bold' }}>
-                Employer Services
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ flex: 1 }}>
-                Find and hire talented youth for your organization's technical needs
-              </Typography>
+
+          {/* Cybersecurity */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                bgcolor: 'background.paper',
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 6
+                }
+              }}
+            >
+              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+                <Box sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  bgcolor: 'error.light',
+                  borderRadius: 2,
+                  p: 2,
+                  width: '80px',
+                  height: '80px'
+                }}>
+                  <CyberSecurity sx={{ fontSize: 48, color: 'error.main' }} />
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h3"
+                  sx={{ mb: 2 }}
+                >
+                  Cybersecurity
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Protect your digital assets with our comprehensive security solutions and threat intelligence services.
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+                  <Chip
+                    label="Pen Testing"
+                    size="small"
+                    sx={{ bgcolor: 'error.light', color: 'error.main' }}
+                  />
+                  <Chip
+                    label="Firewall"
+                    size="small"
+                    sx={{ bgcolor: 'error.light', color: 'error.main' }}
+                  />
+                  <Chip
+                    label="Encryption"
+                    size="small"
+                    sx={{ bgcolor: 'error.light', color: 'error.main' }}
+                  />
+                  <Chip
+                    label="SIEM"
+                    size="small"
+                    sx={{ bgcolor: 'error.light', color: 'error.main' }}
+                  />
+                  <Chip
+                    label="SOC"
+                    size="small"
+                    sx={{ bgcolor: 'error.light', color: 'error.main' }}
+                  />
+                </Box>
+              </CardContent>
               <Button
-                component={RouterLink}
-                to="/register/employer"
+                fullWidth
+                variant="text"
                 color="primary"
-                sx={{ mt: 2 }}
+                size="small"
+                component={Link}
+                to="#cybersecurity"
+                sx={{ 
+                  mt: 2, 
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  fontSize: '1rem'
+                }}
+              >
+                Learn More
+              </Button>
+            </Card>
+          </Grid>
+
+          {/* Digital Marketing */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                bgcolor: 'background.paper',
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 6
+                }
+              }}
+            >
+              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+                <Box sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  bgcolor: 'success.light',
+                  borderRadius: 2,
+                  p: 2,
+                  width: '80px',
+                  height: '80px'
+                }}>
+                  <Campaign sx={{ fontSize: 48, color: 'success.main' }} />
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h3"
+                  sx={{ mb: 2 }}
+                >
+                  Digital Marketing
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Reach your target audience through strategic digital marketing campaigns and analytics-driven strategies.
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+                  <Chip
+                    label="SEO"
+                    size="small"
+                    sx={{ bgcolor: 'success.light', color: 'success.main' }}
+                  />
+                  <Chip
+                    label="SEM"
+                    size="small"
+                    sx={{ bgcolor: 'success.light', color: 'success.main' }}
+                  />
+                  <Chip
+                    label="SMM"
+                    size="small"
+                    sx={{ bgcolor: 'success.light', color: 'success.main' }}
+                  />
+                  <Chip
+                    label="Content"
+                    size="small"
+                    sx={{ bgcolor: 'success.light', color: 'success.main' }}
+                  />
+                  <Chip
+                    label="Analytics"
+                    size="small"
+                    sx={{ bgcolor: 'success.light', color: 'success.main' }}
+                  />
+                </Box>
+              </CardContent>
+              <Button
+                fullWidth
+                variant="text"
+                color="primary"
+                size="small"
+                component={Link}
+                to="#digital-marketing"
+                sx={{ 
+                  mt: 2, 
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  fontSize: '1rem'
+                }}
+              >
+                Learn More
+              </Button>
+            </Card>
+          </Grid>
+
+          {/* AI & Machine Learning */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                bgcolor: 'background.paper',
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 6
+                }
+              }}
+            >
+              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+                <Box sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  bgcolor: 'info.light',
+                  borderRadius: 2,
+                  p: 2,
+                  width: '80px',
+                  height: '80px'
+                }}>
+                  <SmartToy sx={{ fontSize: 48, color: 'info.main' }} />
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h3"
+                  sx={{ mb: 2 }}
+                >
+                  AI & Machine Learning
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Implement intelligent solutions using machine learning and AI to automate processes and enhance decision-making.
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+                  <Chip
+                    label="ML"
+                    size="small"
+                    sx={{ bgcolor: 'info.light', color: 'info.main' }}
+                  />
+                  <Chip
+                    label="NLP"
+                    size="small"
+                    sx={{ bgcolor: 'info.light', color: 'info.main' }}
+                  />
+                  <Chip
+                    label="CV"
+                    size="small"
+                    sx={{ bgcolor: 'info.light', color: 'info.main' }}
+                  />
+                  <Chip
+                    label="DL"
+                    size="small"
+                    sx={{ bgcolor: 'info.light', color: 'info.main' }}
+                  />
+                  <Chip
+                    label="GPT"
+                    size="small"
+                    sx={{ bgcolor: 'info.light', color: 'info.main' }}
+                  />
+                </Box>
+              </CardContent>
+              <Button
+                fullWidth
+                variant="text"
+                color="primary"
+                size="small"
+                component={Link}
+                to="#ai-machine-learning"
+                sx={{ 
+                  mt: 2, 
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  fontSize: '1rem'
+                }}
+              >
+                Learn More
+              </Button>
+            </Card>
+          </Grid>
+
+          {/* Cloud Computing */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Card
+              sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                bgcolor: 'background.paper',
+                boxShadow: 3,
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 6
+                }
+              }}
+            >
+              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+                <Box sx={{ 
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  bgcolor: 'warning.light',
+                  borderRadius: 2,
+                  p: 2,
+                  width: '80px',
+                  height: '80px'
+                }}>
+                  <Cloud sx={{ fontSize: 48, color: 'warning.main' }} />
+                </Box>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="h3"
+                  sx={{ mb: 2 }}
+                >
+                  Cloud Computing
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  paragraph
+                >
+                  Build scalable and resilient cloud infrastructure using modern cloud-native technologies and best practices.
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2 }}>
+                  <Chip
+                    label="AWS"
+                    size="small"
+                    sx={{ bgcolor: 'warning.light', color: 'warning.main' }}
+                  />
+                  <Chip
+                    label="Azure"
+                    size="small"
+                    sx={{ bgcolor: 'warning.light', color: 'warning.main' }}
+                  />
+                  <Chip
+                    label="GCP"
+                    size="small"
+                    sx={{ bgcolor: 'warning.light', color: 'warning.main' }}
+                  />
+                  <Chip
+                    label="K8s"
+                    size="small"
+                    sx={{ bgcolor: 'warning.light', color: 'warning.main' }}
+                  />
+                  <Chip
+                    label="Serverless"
+                    size="small"
+                    sx={{ bgcolor: 'warning.light', color: 'warning.main' }}
+                  />
+                </Box>
+              </CardContent>
+              <Button
+                fullWidth
+                variant="text"
+                color="primary"
+                size="small"
+                component={Link}
+                to="#cloud-computing"
+                sx={{ 
+                  mt: 2, 
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  fontSize: '1rem'
+                }}
               >
                 Learn More
               </Button>
@@ -234,508 +1073,49 @@ const LandingPage = () => {
         </Grid>
       </Container>
 
-      {/* Divider between sections */}
-      <Box sx={{ 
-        bgcolor: 'divider',
-        height: 1,
-        my: 8,
-        width: '100%'
-      }} />
-
-      {/* Tech Domains Section */}
-      <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
-        <Container maxWidth="lg">
-          <Typography 
-            variant="h2" 
-            component="h2" 
-            align="center" 
-            sx={{ 
-              fontWeight: 'bold',
-              mb: 6,
-              textTransform: 'uppercase',
-              letterSpacing: '2px',
-              color: 'primary.main'
-            }}
-          >
-            Our Tech Domains
-          </Typography>
-          
-          <Grid container spacing={4}>
-            {/* Software Development */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  bgcolor: 'background.paper',
-                  boxShadow: 3,
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  width="100%"
-                  image="https://images.unsplash.com/photo-1518770660439-4636193af1ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                  alt="Software Development"
-                  sx={{ 
-                    objectFit: 'cover',
-                    background: '#f5f5f5',
-                    borderRadius: 1,
-                    transition: 'opacity 0.3s ease',
-                    '&:hover': {
-                      opacity: 0.9
-                    },
-                    '&.MuiCardMedia-root': {
-                      width: '100%'
-                    }
-                  }}
-                />
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Software Development
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Expertise in modern web and mobile applications
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            {/* Data Analytics */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  bgcolor: 'background.paper',
-                  boxShadow: 3,
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  width="100%"
-                  image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                  alt="Data Analytics"
-                  sx={{ 
-                    objectFit: 'cover',
-                    background: '#f5f5f5',
-                    borderRadius: 1,
-                    transition: 'opacity 0.3s ease',
-                    '&:hover': {
-                      opacity: 0.9
-                    },
-                    '&.MuiCardMedia-root': {
-                      width: '100%'
-                    }
-                  }}
-                />
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Data Analytics
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Transforming data into actionable insights
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            {/* Cybersecurity */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  bgcolor: 'background.paper',
-                  boxShadow: 3,
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  width="100%"
-                  image="https://images.unsplash.com/photo-1589821744172-9bba9f2c9b4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                  alt="Cybersecurity"
-                  sx={{ 
-                    objectFit: 'cover',
-                    background: '#f5f5f5',
-                    borderRadius: 1,
-                    transition: 'opacity 0.3s ease',
-                    '&:hover': {
-                      opacity: 0.9
-                    },
-                    '&.MuiCardMedia-root': {
-                      width: '100%'
-                    }
-                  }}
-                />
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Cybersecurity
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Protecting your digital assets
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            {/* AI */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  bgcolor: 'background.paper',
-                  boxShadow: 3,
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  width="100%"
-                  image="https://images.unsplash.com/photo-1589821744172-9bba9f2c9b4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                  alt="Artificial Intelligence"
-                  sx={{ 
-                    objectFit: 'cover',
-                    background: '#f5f5f5',
-                    borderRadius: 1,
-                    transition: 'opacity 0.3s ease',
-                    '&:hover': {
-                      opacity: 0.9
-                    },
-                    '&.MuiCardMedia-root': {
-                      width: '100%'
-                    }
-                  }}
-                />
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Artificial Intelligence
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Smart solutions for modern challenges
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            {/* Digital Marketing */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  bgcolor: 'background.paper',
-                  boxShadow: 3,
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  width="100%"
-                  image="https://images.unsplash.com/photo-1589821744172-9bba9f2c9b4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                  alt="Digital Marketing"
-                  sx={{ 
-                    objectFit: 'cover',
-                    background: '#f5f5f5',
-                    borderRadius: 1,
-                    transition: 'opacity 0.3s ease',
-                    '&:hover': {
-                      opacity: 0.9
-                    },
-                    '&.MuiCardMedia-root': {
-                      width: '100%'
-                    }
-                  }}
-                />
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Digital Marketing
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Reaching your audience effectively
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            {/* Cloud Computing */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card 
-                sx={{ 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  bgcolor: 'background.paper',
-                  boxShadow: 3,
-                  transition: 'transform 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                  }
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  width="100%"
-                  image="https://images.unsplash.com/photo-1589821744172-9bba9f2c9b4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-                  alt="Cloud Computing"
-                  sx={{ 
-                    objectFit: 'cover',
-                    background: '#f5f5f5',
-                    borderRadius: 1,
-                    transition: 'opacity 0.3s ease',
-                    '&:hover': {
-                      opacity: 0.9
-                    },
-                    '&.MuiCardMedia-root': {
-                      width: '100%'
-                    }
-                  }}
-                />
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Cloud Computing
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    Scalable and secure infrastructure
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
       {/* Footer */}
-      <Box sx={{ 
-        bgcolor: 'rgba(0,0,0,0.9)', 
-        backdropFilter: 'blur(10px)', 
-        color: 'white', 
-        pt: 12,
-        pb: 12,
-        px: { xs: 2, md: 4 }
-      }}>
+      <Box sx={{ bgcolor: 'background.default', py: 4 }}>
         <Container maxWidth="lg">
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={4}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 4 }}>
-                  <Avatar sx={{ 
-                    bgcolor: 'white', 
-                    color: 'primary.main', 
-                    width: 64,
-                    height: 64
-                  }}>
-                    <img src={logo} alt="Kujia Techies Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                  </Avatar>
-                  <Typography variant="h6" component="h3" sx={{ 
-                    fontWeight: 'bold',
-                    fontSize: '1.5rem'
-                  }}>
-                    Kujia Techies Jobs
-                  </Typography>
-                </Box>
-                <Typography variant="body1" color="text.secondary" sx={{ 
-                  opacity: 0.9,
-                  lineHeight: 1.6,
-                  fontSize: '1rem'
-                }}>
-                  Connecting Kenyan youth with ICT opportunities through innovative job matching and skill development programs.
-                </Typography>
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <Stack spacing={4}>
-                <Typography variant="h6" component="h3" sx={{ 
-                  fontWeight: 'bold',
-                  fontSize: '1.25rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Quick Links
-                </Typography>
-                <Stack direction="column" spacing={2}>
-                  <Button
-                    component={RouterLink}
-                    to="/register/youth"
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 1,
-                      textTransform: 'none',
-                      color: 'text.primary',
-                      fontSize: '1rem',
-                      '&:hover': {
-                        color: 'primary.main',
-                        transform: 'translateY(-2px)'
-                      }
-                    }}
-                  >
-                    <Email sx={{ fontSize: '1.2rem' }} />
-                    Register as Youth
-                  </Button>
-                  <Button
-                    component={RouterLink}
-                    to="/register/employer"
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 1,
-                      textTransform: 'none',
-                      color: 'text.primary',
-                      fontSize: '1rem',
-                      '&:hover': {
-                        color: 'primary.main',
-                        transform: 'translateY(-2px)'
-                      }
-                    }}
-                  >
-                    <Business sx={{ fontSize: '1.2rem' }} />
-                    Register as Employer
-                  </Button>
-                </Stack>
-              </Stack>
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <Stack spacing={4}>
-                <Typography variant="h6" component="h3" sx={{ 
-                  fontWeight: 'bold',
-                  fontSize: '1.25rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Contact Us
-                </Typography>
-                <Stack direction="column" spacing={3}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                    <Email sx={{ color: 'primary.main', fontSize: '1.8rem' }} />
-                    <Typography variant="body1" color="text.secondary" sx={{ 
-                      fontSize: '1rem',
-                      opacity: 0.9,
-                      lineHeight: 1.5
-                    }}>
-                      info@kujiatechies.com
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                    <Phone sx={{ color: 'primary.main', fontSize: '1.8rem' }} />
-                    <Typography variant="body1" color="text.secondary" sx={{ 
-                      fontSize: '1rem',
-                      opacity: 0.9,
-                      lineHeight: 1.5
-                    }}>
-                      +254 700 123 456
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                    <LocationOn sx={{ color: 'primary.main', fontSize: '1.8rem' }} />
-                    <Typography variant="body1" color="text.secondary" sx={{ 
-                      fontSize: '1rem',
-                      opacity: 0.9,
-                      lineHeight: 1.5
-                    }}>
-                      Nairobi, Kenya
-                    </Typography>
-                  </Box>
-                </Stack>
-              </Stack>
-            </Grid>
-          </Grid>
-
-          <Divider sx={{ 
-            my: 6, 
-            borderColor: 'rgba(255,255,255,0.1)',
-            width: '100%'
-          }} />
-
-          <Grid container spacing={4} justifyContent="center" alignItems="center">
-            <Grid item>
-              <IconButton 
-                sx={{ 
-                  color: 'white',
-                  '&:hover': {
-                    color: 'primary.main'
-                  }
-                }}
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+            >
+              &copy; {new Date().getFullYear()} Kujia Techies. All rights reserved.
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <IconButton
+                color="inherit"
+                size="small"
               >
-                <Facebook sx={{ fontSize: '1.8rem' }} />
+                <Facebook />
               </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton 
-                sx={{ 
-                  color: 'white',
-                  '&:hover': {
-                    color: 'primary.main'
-                  }
-                }}
+              <IconButton
+                color="inherit"
+                size="small"
               >
-                <Twitter sx={{ fontSize: '1.8rem' }} />
+                <Twitter />
               </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton 
-                sx={{ 
-                  color: 'white',
-                  '&:hover': {
-                    color: 'primary.main'
-                  }
-                }}
+              <IconButton
+                color="inherit"
+                size="small"
               >
-                <Instagram sx={{ fontSize: '1.8rem' }} />
+                <Instagram />
               </IconButton>
-            </Grid>
-            <Grid item>
-              <IconButton 
-                sx={{ 
-                  color: 'white',
-                  '&:hover': {
-                    color: 'primary.main'
-                  }
-                }}
+              <IconButton
+                color="inherit"
+                size="small"
               >
-                <LinkedIn sx={{ fontSize: '1.8rem' }} />
+                <LinkedIn />
               </IconButton>
-            </Grid>
-          </Grid>
-
-          <Typography variant="body2" color="text.secondary" align="center" sx={{ 
-            mt: 4, 
-            opacity: 0.7,
-            fontSize: '1rem'
-          }}>
-            &copy; {new Date().getFullYear()} Kujia Techies Jobs. All rights reserved.
-          </Typography>
+              <IconButton
+                color="inherit"
+                size="small"
+              >
+                <GitHub />
+              </IconButton>
+            </Box>
+          </Box>
         </Container>
       </Box>
     </Box>
