@@ -14,8 +14,11 @@ import {
   MenuItem,
   useTheme,
   Alert,
-  CircularProgress
+  CircularProgress,
+  Input,
+  IconButton
 } from '@mui/material';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { useNavigate } from 'react-router-dom';
 
 const YouthProfile = () => {
@@ -30,6 +33,7 @@ const YouthProfile = () => {
     github: '',
     portfolio: ''
   });
+  const [cvFile, setCvFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -52,7 +56,16 @@ const YouthProfile = () => {
     setSuccess('');
 
     try {
-      // Here you would typically make an API call to submit the form
+      // Create FormData object for file upload
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataToSend.append(key, value);
+      });
+      if (cvFile) {
+        formDataToSend.append('cv', cvFile);
+      }
+
+      // Here you would typically make an API call to submit the form with file upload
       // For now, we'll simulate success
       await new Promise(resolve => setTimeout(resolve, 1000));
       
@@ -200,11 +213,30 @@ const YouthProfile = () => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Portfolio URL"
+                  label="Portfolio Website"
                   name="portfolio"
                   value={formData.portfolio}
                   onChange={handleChange}
                 />
+              </Grid>
+
+              {/* CV Upload */}
+              <Grid item xs={12}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 1 }}>
+                  <IconButton color="primary" aria-label="upload picture" component="label">
+                    <AttachFileIcon />
+                    <input
+                      hidden
+                      accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      multiple
+                      type="file"
+                      onChange={(e) => setCvFile(e.target.files[0])}
+                    />
+                  </IconButton>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {cvFile ? cvFile.name : 'Upload CV (PDF, DOC, DOCX)'}
+                  </Typography>
+                </Box>
               </Grid>
 
               {/* Submit Button */}
