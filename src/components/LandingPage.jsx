@@ -247,7 +247,14 @@ const LandingPage = () => {
               textTransform: 'none', 
               px: 3, 
               py: 1.5, 
-              fontSize: '1rem'
+              fontSize: '1.1rem',
+              fontWeight: 700,
+              color: 'black',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: 4
+              }
             }}
           >
             Register as Employer
@@ -371,6 +378,8 @@ const LandingPage = () => {
                 Get Started
               </Button>
               <Button
+                component={RouterLink}
+                to="/learn-more"
                 variant="outlined"
                 color="secondary"
                 size="large"

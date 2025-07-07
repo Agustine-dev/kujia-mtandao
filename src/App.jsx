@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage.jsx';
 import Registration from './components/Registration.jsx';
 import YouthProfile from './components/YouthProfile.jsx';
 import EmployerProfile from './components/EmployerProfile.jsx';
+import LearnMore from './components/LearnMore.jsx';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register/:role" element={<Registration />} />
           <Route path="/youth-profile" element={<YouthProfile />} />
           <Route path="/employer-profile" element={<EmployerProfile />} />
+          <Route path="/learn-more" element={<LearnMore />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>

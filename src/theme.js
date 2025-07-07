@@ -2,6 +2,22 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
+    tab: {
+      youth: {
+        main: '#4CAF50',
+        light: '#66BB6A',
+        dark: '#43A047',
+        gradient: 'linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%)',
+      },
+      employer: {
+        main: '#FFA000',
+        light: '#FFC107',
+        dark: '#F57C00',
+        gradient: 'linear-gradient(135deg, #FFA000 0%, #FFC107 100%)',
+      },
+    },
+  },
+  palette: {
     primary: {
       main: '#2E7D32', // Dark Green
       light: '#4CAF50', // Light Green

@@ -358,10 +358,41 @@ function Registration() {
         <Tabs
           value={activeTab}
           onChange={handleTabChange}
-          sx={{ mb: 4 }}
+          centered
+          sx={{
+            mb: 4,
+            '& .MuiTabs-indicator': {
+              backgroundColor: theme.palette.primary.main,
+            },
+            '& .MuiTab-root': {
+              textTransform: 'none',
+              fontWeight: 600,
+              fontSize: '1rem',
+              minHeight: '48px',
+              minWidth: '200px',
+              borderRadius: '8px',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                opacity: 0.8,
+              },
+            },
+            '& .Mui-selected': {
+              backgroundColor: activeTab === 'youth' 
+                ? theme.palette.tab.youth.main 
+                : theme.palette.tab.employer.main,
+              backgroundImage: activeTab === 'youth' 
+                ? theme.palette.tab.youth.gradient 
+                : theme.palette.tab.employer.gradient,
+              color: '#fff',
+            },
+            '& .MuiTab-root:not(.Mui-selected)': {
+              color: theme.palette.text.primary,
+              opacity: 0.8,
+            },
+          }}
         >
-          <Tab value="youth" label="Youth Registration" />
-          <Tab value="employer" label="Employer Registration" />
+          <Tab value="youth" label="Register as Youth" />
+          <Tab value="employer" label="Register as Employer" />
         </Tabs>
 
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
