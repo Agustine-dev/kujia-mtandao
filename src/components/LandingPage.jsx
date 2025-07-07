@@ -208,17 +208,7 @@ const LandingPage = () => {
       <AppBar position="static" color="primary" elevation={0} sx={{ mb: 4 }}>
         <Toolbar sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mr: 2 }}>
-            <Typography 
-              variant="h6" 
-              color="white" 
-              sx={{ 
-                display: { xs: 'none', sm: 'block' },
-                fontWeight: 600,
-                letterSpacing: '0.5px'
-              }}
-            >
-              Kujia Techies Jobs
-            </Typography>
+            <Box sx={{ width: 200 }} />
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Button
