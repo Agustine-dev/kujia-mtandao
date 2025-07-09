@@ -14,11 +14,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/register/youth" element={<YouthProfile />} />
-          <Route path="/register/employer" element={<EmployerProfile />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/register/:role" element={<Registration />} />
-          <Route path="/youth-profile" element={<YouthProfile />} />
+          <Route path="/register/youth" element={<YouthProfile />} />
+          <Route path="/register/employer" element={<EmployerProfile />} />
           <Route path="/employer-profile" element={<EmployerProfile />} />
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="*" element={<Navigate to="/" replace />} />

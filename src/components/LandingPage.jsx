@@ -14,6 +14,7 @@ import {
   Box,
   Link
 } from '@mui/material';
+import WhatsAppImage from '../assets/WhatsApp Image 2025-07-08 at 12.02.42 PM.jpeg';
 import { 
   ArrowForward, 
   Phone,
@@ -41,19 +42,18 @@ import {
   CloudDone
 } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
-import YouthProfile from './YouthProfile';
-import EmployerProfile from './EmployerProfile';
+
 
 const StyledHero = styled(Box)(({ theme }) => ({
   backgroundImage: 'url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)',
   backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  minHeight: '80vh',
+  backgroundPosition: '50% 30%',
+  minHeight: '60vh',
   display: 'flex',
   alignItems: 'center',
   position: 'relative',
   overflow: 'hidden',
-  backgroundAttachment: 'fixed',
+  backgroundAttachment: 'fixed'
 }));
 
 const StyledOverlay = styled(Box)(({ theme }) => ({
@@ -62,9 +62,9 @@ const StyledOverlay = styled(Box)(({ theme }) => ({
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  backgroundColor: 'rgba(0, 0, 0, 0.3)',
   backdropFilter: 'blur(4px)',
-  zIndex: 1,
+  zIndex: 1
 }));
 
 const chaptersData = {
@@ -203,52 +203,104 @@ const LandingPage = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', overflow: 'hidden' }}>
+    <Box sx={{ 
+      minHeight: '100vh', 
+      bgcolor: 'background.default',
+      overflow: 'hidden',
+      pt: { xs: 1, sm: 2, md: 3 }
+    }}>
       {/* Navigation */}
-      <AppBar position="static" color="primary" elevation={0} sx={{ mb: 4 }}>
-        <Toolbar sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mr: 2 }}>
-            <Box sx={{ width: 200 }} />
+      <AppBar position="static" color="inherit" elevation={0} sx={{ 
+        mb: 2, 
+        bgcolor: 'rgba(255, 255, 255, 0.95)', 
+        backdropFilter: 'blur(4px)',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+        borderBottom: '1px solid rgba(0,0,0,0.05)',
+        transition: 'all 0.3s ease-in-out'
+      }}>
+        <Toolbar sx={{ 
+          px: { xs: 1.5, sm: 2.5, md: 3 }, 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          minHeight: '60px',
+          gap: { xs: 1, sm: 1.5, md: 2 }
+        }}>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: { xs: 1, sm: 2 },
+            flex: 1
+          }}>
+            <img
+              src={WhatsAppImage}
+              alt="WhatsApp Logo"
+              style={{
+                height: '45px',
+                width: 'auto',
+                objectFit: 'contain',
+                borderRadius: '10px',
+                boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                padding: '4px',
+                margin: '0 10px',
+                transition: 'all 0.3s ease-in-out',
+                filter: 'brightness(1.05)',
+                '&:hover': {
+                  filter: 'brightness(1.1) drop-shadow(0 4px 12px rgba(0,0,0,0.2))',
+                  transform: 'scale(1.02)'
+                }
+              }}
+            />
           </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <Button
-            component={RouterLink}
-            to="/register/youth"
-            color="inherit"
-            variant="outlined"
-            sx={{ 
-              mr: 2, 
-              borderRadius: 2, 
-              textTransform: 'none', 
-              px: 3, 
-              py: 1.5, 
-              fontSize: '1rem'
-            }}
-          >
-            Register as Youth
-          </Button>
-          <Button
-            component={RouterLink}
-            to="/register/employer"
-            color="inherit"
-            variant="contained"
-            sx={{ 
-              borderRadius: 2, 
-              textTransform: 'none', 
-              px: 3, 
-              py: 1.5, 
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              color: 'black',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: 4
-              }
-            }}
-          >
-            Register as Employer
-          </Button>
+          <Box sx={{ 
+            display: 'flex', 
+            gap: { xs: 1, sm: 2 },
+            alignItems: 'center'
+          }}>
+            <Button
+              component={RouterLink}
+              to="/register/youth"
+              color="inherit"
+              variant="outlined"
+              sx={{ 
+                borderRadius: 2, 
+                textTransform: 'none', 
+                px: 2, 
+                py: 1, 
+                fontSize: '0.9rem',
+                borderColor: 'rgba(255, 165, 0, 0.8)',
+                '&:hover': {
+                  borderColor: 'rgba(255, 140, 0, 0.9)',
+                  transform: 'translateY(-1px)'
+                }
+              }}
+            >
+              Register as Youth
+            </Button>
+            <Button
+              component={RouterLink}
+              to="/register/employer"
+              color="inherit"
+              variant="contained"
+              sx={{ 
+                borderRadius: 2, 
+                textTransform: 'none', 
+                px: 2, 
+                py: 1, 
+                fontSize: '0.9rem',
+                fontWeight: 600,
+                bgcolor: 'rgba(255, 165, 0, 0.8)',
+                color: 'white',
+                '&:hover': {
+                  bgcolor: 'rgba(255, 140, 0, 0.9)',
+                  transform: 'translateY(-1px)'
+                }
+              }}
+            >
+              Register as Employer
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
 
@@ -282,12 +334,14 @@ const LandingPage = () => {
               onClick={() => setShowForm(false)}
               sx={{
                 position: 'absolute',
-                right: 16,
-                top: 16,
+                right: 24,
+                top: 24,
                 color: 'primary.main',
                 '&:hover': {
                   bgcolor: 'primary.light'
-                }
+                },
+                px: 2,
+                py: 1
               }}
             >
               Close
@@ -304,47 +358,71 @@ const LandingPage = () => {
       {/* Hero Section */}
       <StyledHero>
         <StyledOverlay />
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ 
+          position: 'relative', 
+          zIndex: 2,
+          px: { xs: 2, sm: 3, md: 4 },
+          py: { xs: 2, sm: 3, md: 4 }
+        }}>
           <Box sx={{ 
-            textAlign: 'center', 
-            position: 'relative', 
-            zIndex: 2,
-            mb: { xs: 4, md: 8 },
-            px: 2
+            textAlign: 'center',
+            mb: { xs: 3, sm: 4, md: 5 },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%'
           }}>
             <Typography
               variant="h1"
-              component="h1"
+              color="white"
               sx={{
-                color: 'white',
+                mb: 1.5,
+                fontSize: { xs: '2.2rem', sm: '2.6rem', md: '3rem' },
                 fontWeight: 700,
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
-                mb: 2,
-                textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                lineHeight: 1.2
+                lineHeight: 1.3,
+                textShadow: '2px 2px 3px rgba(0,0,0,0.3)',
+                animation: 'textGlow 3s ease-in-out infinite',
+                textAlign: 'center'
               }}
             >
               Welcome to Kujia Techies Jobs
             </Typography>
             <Typography
-              variant="h4"
+              variant="h2"
               color="white"
               sx={{
-                mb: 4,
-                fontSize: { xs: '1.2rem', md: '1.5rem' },
-                opacity: 0.9,
-                textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+                mb: 2,
+                fontSize: { xs: '1.4rem', sm: '1.6rem', md: '2rem' },
+                opacity: 0.95,
+                lineHeight: 1.4,
+                textShadow: '1px 1px 2px rgba(0,0,0,0.2)',
+                animation: 'fadeIn 1s ease-in-out',
+                fontWeight: 600,
+                letterSpacing: '0.5px'
               }}
             >
-              Connecting talented youth with amazing opportunities
+              <span style={{
+                display: 'inline-block',
+                background: 'linear-gradient(45deg, #ffa500, #ff8c00)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                fontSize: { xs: '1.8rem', sm: '2rem', md: '2.4rem' },
+                lineHeight: 1.4,
+                textShadow: '1px 1px 4px rgba(0,0,0,0.2)',
+                animation: 'textGlow 3s ease-in-out infinite',
+                textAlign: 'center'
+              }}>Connecting Youth in Digital Spaces with Well paying IT Jobs</span>
             </Typography>
             <Box sx={{ 
               display: 'flex', 
-              gap: 3, 
-              justifyContent: 'center', 
-              mb: 6,
-              mt: 4,
-              flexWrap: 'wrap'
+              gap: { xs: 1, sm: 1.5, md: 2 },
+              justifyContent: 'center',
+              mb: { xs: 3, sm: 4, md: 5 },
+              mt: { xs: 2, sm: 3, md: 4 },
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              width: '100%'
             }}>
               <Button
                 variant="contained"
@@ -352,11 +430,11 @@ const LandingPage = () => {
                 size="large"
                 endIcon={<ArrowForward />}
                 sx={{
-                  px: 5,
-                  py: 2.5,
+                  px: 4,
+                  py: 2,
                   borderRadius: 2,
                   textTransform: 'none',
-                  fontSize: '1.1rem',
+                  fontSize: '1rem',
                   fontWeight: 500,
                   transition: 'all 0.3s ease',
                   '&:hover': {
@@ -374,11 +452,11 @@ const LandingPage = () => {
                 color="secondary"
                 size="large"
                 sx={{
-                  px: 5,
-                  py: 2.5,
+                  px: 4,
+                  py: 2,
                   borderRadius: 2,
                   textTransform: 'none',
-                  fontSize: '1.1rem',
+                  fontSize: '1rem',
                   fontWeight: 500,
                   transition: 'all 0.3s ease',
                   '&:hover': {
@@ -395,99 +473,147 @@ const LandingPage = () => {
       </StyledHero>
 
       {/* Features Section */}
-      <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
+      <Container maxWidth="lg" sx={{ 
+        py: { xs: 2, md: 3 },
+        mt: { xs: 2, md: 3 }
+      }}>
+        <Grid container spacing={4} sx={{ justifyContent: 'space-around' }}>
+          <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Card
               sx={{
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                p: 3,
-                boxShadow: 3,
+                p: 2,
+                boxShadow: 2,
                 transition: 'transform 0.3s ease',
                 '&:hover': {
-                  transform: 'translateY(-5px)'
+                  transform: 'translateY(-4px)'
                 }
               }}
             >
-              <SmartToy sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+              <Box sx={{ 
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mb: 2,
+                width: '100%'
+              }}>
+                <SmartToy sx={{ fontSize: 50, color: 'primary.main' }} />
+              </Box>
               <Typography
                 variant="h5"
                 align="center"
-                sx={{ mb: 2 }}
+                sx={{ 
+                  mb: 2,
+                  fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.6rem' }
+                }}
               >
                 AI-Powered Matching
               </Typography>
               <Typography
                 variant="body1"
                 align="center"
-                sx={{ color: 'text.secondary' }}
+                sx={{ 
+                  color: 'text.secondary',
+                  fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                  mb: 3
+                }}
               >
                 Our advanced AI system matches you with the perfect job opportunities
               </Typography>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Card
               sx={{
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                p: 3,
-                boxShadow: 3,
+                p: 2,
+                boxShadow: 2,
                 transition: 'transform 0.3s ease',
                 '&:hover': {
-                  transform: 'translateY(-5px)'
+                  transform: 'translateY(-4px)'
                 }
               }}
             >
-              <Analytics sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+              <Box sx={{ 
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mb: 2,
+                width: '100%'
+              }}>
+                <Analytics sx={{ fontSize: 50, color: 'primary.main' }} />
+              </Box>
               <Typography
                 variant="h5"
                 align="center"
-                sx={{ mb: 2 }}
+                sx={{ 
+                  mb: 2,
+                  fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.6rem' }
+                }}
               >
                 Data-Driven Insights
               </Typography>
               <Typography
                 variant="body1"
                 align="center"
-                sx={{ color: 'text.secondary' }}
+                sx={{ 
+                  color: 'text.secondary',
+                  fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                  mb: 3
+                }}
               >
                 Get insights into job market trends and your application status
               </Typography>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Card
               sx={{
                 height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                p: 3,
-                boxShadow: 3,
+                p: 2,
+                boxShadow: 2,
                 transition: 'transform 0.3s ease',
                 '&:hover': {
-                  transform: 'translateY(-5px)'
+                  transform: 'translateY(-4px)'
                 }
               }}
             >
-              <Security sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+              <Box sx={{ 
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mb: 2,
+                width: '100%'
+              }}>
+                <Security sx={{ fontSize: 50, color: 'primary.main' }} />
+              </Box>
               <Typography
                 variant="h5"
                 align="center"
-                sx={{ mb: 2 }}
+                sx={{ 
+                  mb: 2,
+                  fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.6rem' }
+                }}
               >
                 Secure Platform
               </Typography>
               <Typography
                 variant="body1"
                 align="center"
-                sx={{ color: 'text.secondary' }}
+                sx={{ 
+                  color: 'text.secondary',
+                  fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                  mb: 3
+                }}
               >
                 Your data is protected with our enterprise-grade security measures
               </Typography>
@@ -497,13 +623,19 @@ const LandingPage = () => {
       </Container>
 
       {/* Tech Domains Section */}
-      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 }, mt: 8 }}>
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
+      <Container maxWidth="lg" sx={{ 
+        py: { xs: 2, md: 3 },
+        mt: { xs: 2, md: 3 }
+      }}>
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography
             variant="h2"
             component="h2"
             gutterBottom
-            sx={{ fontWeight: 700 }}
+            sx={{ 
+              fontWeight: 700,
+              fontSize: { xs: '2rem', sm: '2.2rem', md: '2.4rem' }
+            }}
           >
             Our Tech Domains
           </Typography>
@@ -511,7 +643,12 @@ const LandingPage = () => {
             variant="h6"
             color="text.secondary"
             paragraph
-            sx={{ maxWidth: 600, mx: 'auto' }}
+            sx={{ 
+              maxWidth: 600, 
+              mx: 'auto',
+              fontSize: { xs: '1rem', sm: '1.1rem' },
+              mb: 4
+            }}
           >
             Discover our expertise in cutting-edge technology solutions designed to help you succeed in the digital age
           </Typography>
@@ -534,17 +671,17 @@ const LandingPage = () => {
                 }
               }}
             >
-              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+              <CardContent sx={{ flexGrow: 1, p: 3 }}>
                 <Box sx={{ 
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  mb: 3,
+                  mb: 2,
                   bgcolor: 'primary.light',
                   borderRadius: 2,
                   p: 2,
-                  width: '80px',
-                  height: '80px'
+                  width: '70px',
+                  height: '70px'
                 }}>
                   <Code sx={{ fontSize: 48, color: 'primary.main' }} />
                 </Box>
@@ -626,7 +763,7 @@ const LandingPage = () => {
                 }
               }}
             >
-              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+              <CardContent sx={{ flexGrow: 1, p: 3 }}>
                 <Box sx={{ 
                   display: 'flex',
                   alignItems: 'center',
@@ -718,7 +855,7 @@ const LandingPage = () => {
                 }
               }}
             >
-              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+              <CardContent sx={{ flexGrow: 1, p: 3 }}>
                 <Box sx={{ 
                   display: 'flex',
                   alignItems: 'center',
@@ -810,7 +947,7 @@ const LandingPage = () => {
                 }
               }}
             >
-              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+              <CardContent sx={{ flexGrow: 1, p: 3 }}>
                 <Box sx={{ 
                   display: 'flex',
                   alignItems: 'center',
@@ -902,7 +1039,7 @@ const LandingPage = () => {
                 }
               }}
             >
-              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+              <CardContent sx={{ flexGrow: 1, p: 3 }}>
                 <Box sx={{ 
                   display: 'flex',
                   alignItems: 'center',
@@ -967,10 +1104,10 @@ const LandingPage = () => {
                 component={Link}
                 to="#ai-machine-learning"
                 sx={{ 
-                  mt: 2, 
+                  mt: 1.5, 
                   textTransform: 'none',
                   fontWeight: 500,
-                  fontSize: '1rem'
+                  fontSize: '0.95rem'
                 }}
               >
                 Learn More
@@ -986,15 +1123,15 @@ const LandingPage = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 bgcolor: 'background.paper',
-                boxShadow: 3,
+                boxShadow: 2,
                 transition: 'transform 0.3s ease',
                 '&:hover': {
-                  transform: 'translateY(-5px)',
-                  boxShadow: 6
+                  transform: 'translateY(-4px)',
+                  boxShadow: 4
                 }
               }}
             >
-              <CardContent sx={{ flexGrow: 1, p: 4 }}>
+              <CardContent sx={{ flexGrow: 1, p: 3 }}>
                 <Box sx={{ 
                   display: 'flex',
                   alignItems: 'center',
@@ -1059,10 +1196,10 @@ const LandingPage = () => {
                 component={Link}
                 to="#cloud-computing"
                 sx={{ 
-                  mt: 2, 
+                  mt: 1.5, 
                   textTransform: 'none',
                   fontWeight: 500,
-                  fontSize: '1rem'
+                  fontSize: '0.95rem'
                 }}
               >
                 Learn More
@@ -1073,45 +1210,107 @@ const LandingPage = () => {
       </Container>
 
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.default', py: 4 }}>
+      <Box sx={{ 
+        bgcolor: 'background.paper',
+        py: { xs: 5, sm: 7, md: 9 },
+        borderTop: '2px solid rgba(0,0,0,0.15)',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
         <Container maxWidth="lg">
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-            >
-              &copy; {new Date().getFullYear()} Kujia Techies. All rights reserved.
-            </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', md: 'row' }, 
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            gap: { xs: 2, md: 0 },
+            width: '100%',
+            maxWidth: '1200px',
+            mx: 'auto'
+          }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' }, gap: 1.5 }}>
+              <Typography
+                variant="body2"
+                color="primary"
+                sx={{
+                  fontWeight: 500,
+                  animation: 'fadeIn 1s ease-in-out'
+                }}
+              >
+                &copy; {new Date().getFullYear()} Kujia Techies. All rights reserved.
+              </Typography>
+            </Box>
+            <Box sx={{ 
+              display: 'flex', 
+              gap: { xs: 2, sm: 3 },
+              animation: 'fadeIn 1s ease-in-out'
+            }}
+            data-aos="fade-left"
+            data-aos-duration="1000">
               <IconButton
                 color="inherit"
-                size="small"
+                size="medium"
+                component="a"
+                href="https://www.facebook.com/kujia.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  '&:hover': {
+                    transform: 'scale(1.2)',
+                    bgcolor: 'rgba(0, 0, 0, 0.05)'
+                  }
+                }}
               >
-                <Facebook />
+                <Facebook sx={{ fontSize: 24 }} />
               </IconButton>
               <IconButton
                 color="inherit"
-                size="small"
+                size="medium"
+                component="a"
+                href="https://twitter.com/kujia_org"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  '&:hover': {
+                    transform: 'scale(1.2)',
+                    bgcolor: 'rgba(0, 0, 0, 0.05)'
+                  }
+                }}
               >
-                <Twitter />
+                <Twitter sx={{ fontSize: 24 }} />
               </IconButton>
               <IconButton
                 color="inherit"
-                size="small"
+                size="medium"
+                component="a"
+                href="https://www.instagram.com/kujia.kenya/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  '&:hover': {
+                    transform: 'scale(1.2)',
+                    bgcolor: 'rgba(0, 0, 0, 0.05)'
+                  }
+                }}
               >
-                <Instagram />
+                <Instagram sx={{ fontSize: 24 }} />
               </IconButton>
               <IconButton
                 color="inherit"
-                size="small"
+                size="medium"
+                component="a"
+                href="https://ke.linkedin.com/company/kujia-kenya"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  '&:hover': {
+                    transform: 'scale(1.2)',
+                    bgcolor: 'rgba(0, 0, 0, 0.05)'
+                  }
+                }}
               >
-                <LinkedIn />
-              </IconButton>
-              <IconButton
-                color="inherit"
-                size="small"
-              >
-                <GitHub />
+                <LinkedIn sx={{ fontSize: 24 }} />
               </IconButton>
             </Box>
           </Box>
